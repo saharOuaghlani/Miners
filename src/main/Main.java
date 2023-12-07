@@ -51,22 +51,22 @@ public class Main extends JFrame{
                 switch(i)
                 {
                 case 1: 
-                    agentController = container.createNewAgent(agentName, agentClass, new Object[]{0,0, REGION_SIZE, AGENTCAPACITY});
+                    agentController = container.createNewAgent(agentName, agentClass, new Object[]{0,0, REGION_SIZE, AGENTCAPACITY, 15,15});
                     agentController.start();
                 	break;
                 	
                 case 2:
-                    agentController = container.createNewAgent(agentName, agentClass, new Object[]{REGION_SIZE, 0, REGION_SIZE, AGENTCAPACITY});
+                    agentController = container.createNewAgent(agentName, agentClass, new Object[]{REGION_SIZE, 0, REGION_SIZE, AGENTCAPACITY, 16,15});
                     agentController.start();
                 	break;
 
                 case 3:
-                	agentController = container.createNewAgent(agentName, agentClass, new Object[]{0, REGION_SIZE, REGION_SIZE, AGENTCAPACITY});
+                	agentController = container.createNewAgent(agentName, agentClass, new Object[]{0, REGION_SIZE, REGION_SIZE, AGENTCAPACITY, 15,16});
                 	agentController.start();
                 	break;
                 	
                 case 4: 
-                	agentController = container.createNewAgent(agentName, agentClass, new Object[]{REGION_SIZE, REGION_SIZE, REGION_SIZE, AGENTCAPACITY});
+                	agentController = container.createNewAgent(agentName, agentClass, new Object[]{REGION_SIZE, REGION_SIZE, REGION_SIZE, AGENTCAPACITY, 16,16});
                 	agentController.start();
                 	break;
                 	
@@ -75,7 +75,7 @@ public class Main extends JFrame{
                 	agentController.start();
                 	break;
                 
-                default: System.out.println("ERROR§");
+                default: System.out.println("ERRORï¿½");
                 }
                 
             i++;
