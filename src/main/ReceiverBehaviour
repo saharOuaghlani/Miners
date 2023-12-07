@@ -1,0 +1,27 @@
+package main;
+import jade.core.Agent;
+import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
+import jade.core.behaviours.SimpleBehaviour;
+
+
+public class ReceiverBehaviour extends SimpleBehaviour {
+    private static final MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
+    public ReceiverBehaviour(Agent agent) {
+        super(agent);
+        }
+    public void action() {
+        ACLMessage msg = myAgent.receive(mt);
+        if (msg!=null) {
+        System.out.println(myAgent.getLocalName()+":Ireceived
+        message.\n"
+        +msg.toString());
+        }
+        else {
+        this.block();
+        }
+    }
+    public boolean done() {
+        return false;
+    }
+}

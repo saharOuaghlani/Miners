@@ -1,31 +1,31 @@
 package main;
 import jade.core.Agent;
+import jade.core.behaviours.ReceiverBehaviour;
 import jade.lang.acl.ACLMessage;
 
 import java.util.Arrays;
 import java.util.List;
 
 import jade.core.AID;
-
 public class Explorer  extends Agent {
 	private static final long serialVersionUID = 7043315975215984640L;
 	
-	int x0;
-	int y0;
-	int regionSize;
-	int capacity;
-	Position position, entropot;
-	PlayGround myPlayGround;
-	int[][] matrix;
-	String agentName;
+	private int x0;
+	private int y0;
+	private int regionSize;
+	private int capacity;
+	private Position position, entropot;
+	private PlayGround myPlayGround;
+	private int[][] matrix;
+	private String agentName;
+	private boolean dispo;
 	public Explorer(){super();}
 	
 	protected void setup(){		
 	// Get arguments
 	Object[] args = getArguments();
-	
-	//System.out.println("@"+ this.getLocalName()+" "+args.length);
-	//Verify arguments
+	dispo = false;
+
 	if(args == null) System.out.println("args are null");
 	else{
 		x0= Integer.parseInt( args[0].toString());
@@ -38,7 +38,17 @@ public class Explorer  extends Agent {
 		agentName = args[5].toString();
 		System.out.println("@"+this.getLocalName()+":"+x0+", "+y0+", "+regionSize+", "+ capacity);
 	}
+	while(dispo == false)
+	{
+		explorerMatriceRessources();
+		String message = addBehaviour(new ReceiverBehaviour(this));
+		if (message.equals("Region DONE!")){
+			moveAgent(position, entropot);
+			dispo = true;
+		}
 	}
+	}
+
 	private void sendMessage(String to, Position pos) {
 		ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 		msg.addReceiver(new AID(to,AID.ISLOCALNAME));
@@ -54,6 +64,7 @@ public class Explorer  extends Agent {
 			}
 		}
 	}
+
 	private static void moveAgent(Position currentPosition, Position endPosition) {
         int currentX = currentPosition.getX();
         int currentY = currentPosition.getY();
@@ -79,9 +90,10 @@ public class Explorer  extends Agent {
             System.out.println("Position actuelle : (" + currentX + ", " + currentY + ")");
         }
     }
-	private void explorerMatriceRessources() {
-	
-	do{
+
+	private void explorerMatriceRessources() {	
+	do
+	{
 		// Générer un nombre aléatoire pour la direction du déplacement
 		int direction = (int) (Math.random() * 4); // 0: gauche, 1: droite, 2: haut, 3: bas
 		switch (direction) {
@@ -102,20 +114,24 @@ public class Explorer  extends Agent {
 		
 		int nouvellePositionI = position.getX();
 		int nouvellePositionJ = position.getY();
-
 		if (myPlayGround.matrix[nouvellePositionI][nouvellePositionJ] > 0) {
 			// Récupérer la ressource si elle est dans la capacité de l'agent
+
+			if (myPlayGround.matrix[nouvellePositionI][nouvellePositionJ] == 0)
+					matrix[nouvellePositionI][nouvellePositionJ] = -1;
 			if (myPlayGround.matrix[nouvellePositionI][nouvellePositionJ] <= capacity) {
 				myPlayGround.matrix[nouvellePositionI][nouvellePositionJ] = 0;
 				int charge = myPlayGround.matrix[nouvellePositionI][nouvellePositionJ];
-				myPlayGround.discovery[nouvellePositionI][nouvellePositionJ] = 1;
+				myPlayGround.discovery[nouvellePositionI][nouvellePositionJ] = -1;
 				System.out.println(getLocalName() + " a récupéré une ressource à la position " + nouvellePositionI + ", " + nouvellePositionJ);
-				moveAgent(new Position(position.getX(),position.getY()), new Position(entropot.getX(),entropot.getY()));
+				moveAgent(position, entropot);
 				myPlayGround.discovery[entropot.getX()][entropot.getY()] += charge;
 			} else {
 
-				// Faire appel à d'autres agents selon certains critères
-				AppelAutresAgents(new Position(nouvellePositionI, nouvellePositionJ), agentName);
+				// Faire appel à d'autres agents 
+				AppelAutresAgents(position, agentName);
+				//selection d'agent selon critére de distance
+				//si aucune réponse retour de l'agent lui méme pour la récuperation
 
 			}
 		}
