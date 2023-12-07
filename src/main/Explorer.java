@@ -20,7 +20,7 @@ public class Explorer  extends Agent {
 	private String agentName;
 	private boolean dispo;
 	public Explorer(){super();}
-	
+	ReceiverBehaviour receiverBehaviour;
 	protected void setup(){		
 	// Get arguments
 	Object[] args = getArguments();
@@ -41,14 +41,40 @@ public class Explorer  extends Agent {
 	while(dispo == false)
 	{
 		explorerMatriceRessources();
-		String message = addBehaviour(new ReceiverBehaviour(this));
+		receiverBehaviour = new ReceiverBehaviour(this);
+		String message = receiverBehaviour.getReceivedContent();
 		if (message.equals("Region DONE!")){
 			moveAgent(position, entropot);
 			dispo = true;
 		}
 	}
-	}
+	while(true)
+	{
+		addBehaviour(new ReceiverBehaviour(this));
+		///Recuperer location du message////////////////////////////////////////////////
+		String message = receiverBehaviour.getReceivedContent();
+		Position posR = new Position(0,0); 
+		
+		if (message.equals("Help me please! This is the location of ressources")){
+			moveAgent(entropot, posR);
+			if (myPlayGround.matrix[posR.getX()][posR.getY()] <= capacity) {
+				int charge = myPlayGround.matrix[posR.getX()][posR.getY()];
+				myPlayGround.matrix[posR.getX()][posR.getY()] = 0;
+				myPlayGround.discovery[posR.getX()][posR.getY()] = -1;
+				moveAgent(posR, entropot);
+				myPlayGround.discovery[entropot.getX()][entropot.getY()] += charge;		}
+				else{
+					int charge = myPlayGround.matrix[posR.getX()][posR.getY()];
+					myPlayGround.matrix[posR.getX()][posR.getY()] -= capacity;
+					myPlayGround.discovery[posR.getX()][posR.getY()] = -1;
+					moveAgent(posR, entropot);
+					myPlayGround.discovery[entropot.getX()][entropot.getY()] += charge;		
+				}
 
+
+	}
+	}
+	}
 	private void sendMessage(String to, Position pos) {
 		ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 		msg.addReceiver(new AID(to,AID.ISLOCALNAME));
@@ -120,8 +146,8 @@ public class Explorer  extends Agent {
 			if (myPlayGround.matrix[nouvellePositionI][nouvellePositionJ] == 0)
 					matrix[nouvellePositionI][nouvellePositionJ] = -1;
 			if (myPlayGround.matrix[nouvellePositionI][nouvellePositionJ] <= capacity) {
-				myPlayGround.matrix[nouvellePositionI][nouvellePositionJ] = 0;
 				int charge = myPlayGround.matrix[nouvellePositionI][nouvellePositionJ];
+				myPlayGround.matrix[nouvellePositionI][nouvellePositionJ] = 0;
 				myPlayGround.discovery[nouvellePositionI][nouvellePositionJ] = -1;
 				System.out.println(getLocalName() + " a récupéré une ressource à la position " + nouvellePositionI + ", " + nouvellePositionJ);
 				moveAgent(position, entropot);
@@ -130,11 +156,12 @@ public class Explorer  extends Agent {
 
 				// Faire appel à d'autres agents 
 				AppelAutresAgents(position, agentName);
-				//selection d'agent selon critére de distance
+				//selection d'agent selon le critére de distance
 				//si aucune réponse retour de l'agent lui méme pour la récuperation
 
 			}
 		}
 	}
+	
 	
 }

@@ -24,4 +24,8 @@ public class ReceiverBehaviour extends SimpleBehaviour {
     public boolean done() {
         return false;
     }
+    
+    public String getReceivedContent() {
+        return receivedContent;
+    }
 }
