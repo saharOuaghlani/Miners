@@ -10,6 +10,7 @@ public class Explorer  extends Agent {
 	int regionSize;
 	int capacity;
 	Position position, entropot;
+	PlayGround myPlayGround;
 	
 	public Explorer(){super();}
 	
@@ -50,20 +51,21 @@ public class Explorer  extends Agent {
 			case 3: // Bas
 				position.setX(position.getX() + 1);
 				break;
-		} while(position.getX()<x0 || position.getY()<y0 || position.getX() == x0 + regionSize || position.getY() == y0 + regionSize);
+		}
+	}while(position.getX()<x0 || position.getY()<y0 || position.getX() == x0 + regionSize || position.getY() == y0 + regionSize);
 		
 		int nouvellePositionI = position.getX();
 		int nouvellePositionJ = position.getY();
 
-		if (matriceRessources[nouvellePositionI][nouvellePositionJ] > 0 && matricePositions[nouvellePositionI][nouvellePositionJ] == 0) {
+		if (myPlayGround.matrix[nouvellePositionI][nouvellePositionJ] > 0 && myPlayGround.discovery[nouvellePositionI][nouvellePositionJ] == 0) {
 			// Récupérer la ressource si elle est dans la capacité de l'agent
-			if (matriceRessources[nouvellePositionI][nouvellePositionJ] <= capacity) {
-				matriceRessources[nouvellePositionI][nouvellePositionJ] = 0;
-				matricePositions[nouvellePositionI][nouvellePositionJ] = 1;
+			if (myPlayGround.matrix[nouvellePositionI][nouvellePositionJ] <= capacity) {
+				myPlayGround.matrix[nouvellePositionI][nouvellePositionJ] = 0;
+				myPlayGround.discovery[nouvellePositionI][nouvellePositionJ] = 1;
 				System.out.println(getLocalName() + " a récupéré une ressource à la position " + nouvellePositionI + ", " + nouvellePositionJ);
 			} else {
 				// Faire appel à d'autres agents selon certains critères
-				faireAppelAutresAgents(nouvellePositionI, nouvellePositionJ);
+				//faireAppelAutresAgents(nouvellePositionI, nouvellePositionJ);
 			}
 		}
 	}
