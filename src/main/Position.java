@@ -8,6 +8,8 @@ public class Position {
     {
         super();
     }
+    
+    
 
     public Position(int x, int y)
         {

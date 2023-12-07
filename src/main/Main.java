@@ -51,26 +51,31 @@ public class Main extends JFrame{
                 String agentName = agentParts[0];
                 String agentClass = agentParts[1];
 
+                Position p1= new Position (PlayGround.REGION_SIZE-1, PlayGround.REGION_SIZE - 1);
+                Position p2= new Position (PlayGround.REGION_SIZE, PlayGround.REGION_SIZE - 1);
+                Position p3= new Position (PlayGround.REGION_SIZE - 1, PlayGround.REGION_SIZE);
+                Position p4= new Position (PlayGround.REGION_SIZE, PlayGround.REGION_SIZE);
+                
                 switch(i)
                 {
                 case 1: 
-                    agentController = container.createNewAgent(agentName, agentClass, new Object[]{0,0, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY, PlayGround.REGION_SIZE-1, PlayGround.REGION_SIZE - 1, myPlayGround});
+                    agentController = container.createNewAgent(agentName, agentClass, new Object[]{0,0, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY, p1, myPlayGround});
                     agentController.start();
                 	break;
                 	
                 case 2:
-                    agentController = container.createNewAgent(agentName, agentClass, new Object[]{PlayGround.REGION_SIZE, 0, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY, PlayGround.REGION_SIZE, PlayGround.REGION_SIZE - 1, myPlayGround});
+                    agentController = container.createNewAgent(agentName, agentClass, new Object[]{PlayGround.REGION_SIZE, 0, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY, p2, myPlayGround});
                     agentController.start();
                 	break;
 
                 case 3:
-                	agentController = container.createNewAgent(agentName, agentClass, new Object[]{0, PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY, PlayGround.REGION_SIZE - 1, PlayGround.REGION_SIZE, myPlayGround});
+                	agentController = container.createNewAgent(agentName, agentClass, new Object[]{0, PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY, p3, myPlayGround});
                 	agentController.start();
                 	break;
                 	
                 case 4: 
 
-                	agentController = container.createNewAgent(agentName, agentClass, new Object[]{PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY, PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, myPlayGround});
+                	agentController = container.createNewAgent(agentName, agentClass, new Object[]{PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY, p4, myPlayGround});
                 	agentController.start();
                 	break;
                 	
