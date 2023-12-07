@@ -54,22 +54,23 @@ public class Main extends JFrame{
                 switch(i)
                 {
                 case 1: 
-                    agentController = container.createNewAgent(agentName, agentClass, new Object[]{0,0, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY});
+                    agentController = container.createNewAgent(agentName, agentClass, new Object[]{0,0, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY, PlayGround.REGION_SIZE-1, PlayGround.REGION_SIZE - 1});
                     agentController.start();
                 	break;
                 	
                 case 2:
-                    agentController = container.createNewAgent(agentName, agentClass, new Object[]{PlayGround.REGION_SIZE, 0, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY});
+                    agentController = container.createNewAgent(agentName, agentClass, new Object[]{PlayGround.REGION_SIZE, 0, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY, PlayGround.REGION_SIZE, PlayGround.REGION_SIZE - 1});
                     agentController.start();
                 	break;
 
                 case 3:
-                	agentController = container.createNewAgent(agentName, agentClass, new Object[]{0, PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY});
+                	agentController = container.createNewAgent(agentName, agentClass, new Object[]{0, PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY, PlayGround.REGION_SIZE - 1, PlayGround.REGION_SIZE});
                 	agentController.start();
                 	break;
                 	
                 case 4: 
-                	agentController = container.createNewAgent(agentName, agentClass, new Object[]{PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY});
+
+                	agentController = container.createNewAgent(agentName, agentClass, new Object[]{PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY, PlayGround.REGION_SIZE, PlayGround.REGION_SIZE});
                 	agentController.start();
                 	break;
                 	
@@ -78,7 +79,7 @@ public class Main extends JFrame{
                 	agentController.start();
                 	break;
                 
-                default: System.out.println("ERROR§");
+                default: System.out.println("ERRORï¿½");
                 }
                 
             i++;
