@@ -36,32 +36,25 @@ public class Explorer  extends Agent {
 		// Générer un nombre aléatoire pour la direction du déplacement
 		int direction = (int) (Math.random() * 4); // 0: gauche, 1: droite, 2: haut, 3: bas
 	
-		int nouvellePositionI = -1;
-		int nouvellePositionJ = -1;
-	
+	do{
 		switch (direction) {
 			case 0: // Gauche
-				nouvellePositionI = position.getX();
-				position.setY(Math.max(position.getX() - 1, 0));
-				nouvellePositionJ = position.getY();
+				position.setY(position.getX()-1);
 				break;
 			case 1: // Droite
-				nouvellePositionI = position.getX();
 				position.setY(position.getY() + 1);
-				nouvellePositionJ = position.getY();
 				break;
 			case 2: // Haut
 				position.setX(position.getX() - 1);
-				nouvellePositionI = position.getX()
-				nouvellePositionJ = position.getY();
 				break;
 			case 3: // Bas
 				position.setX(position.getX() + 1);
-				nouvellePositionI = position.getX();
-				nouvellePositionJ = position.getY();
 				break;
-		}
-	
+		} while(position.getX()<x0 || position.getY()<y0 || position.getX() == x0 + regionSize || position.getY() == y0 + regionSize);
+		
+		int nouvellePositionI = position.getX();
+		int nouvellePositionJ = position.getY();
+
 		if (matriceRessources[nouvellePositionI][nouvellePositionJ] > 0 && matricePositions[nouvellePositionI][nouvellePositionJ] == 0) {
 			// Récupérer la ressource si elle est dans la capacité de l'agent
 			if (matriceRessources[nouvellePositionI][nouvellePositionJ] <= capacity) {
