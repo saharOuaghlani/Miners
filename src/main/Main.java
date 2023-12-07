@@ -15,7 +15,7 @@ import main.MainPanel;
 
 public class Main extends JFrame{
 	
-	private static final int MATRIX_SIZE = 32;
+	/*private static final int MATRIX_SIZE = 32;
     private static final int REGION_SIZE = MATRIX_SIZE / 2;
     private static final int CASE_SIZE = 20;
     private static final int ROBOT_SIZE = 20;
@@ -23,11 +23,14 @@ public class Main extends JFrame{
     
     private static final int MINES= 50;
     private static final int AGENTCAPACITY= 2;
-    
+    */
+	
+    private static PlayGround myPlayGround;
     private static MainPanel center;
     
-    
 	public static void main(String[] args) {
+		
+		myPlayGround= new PlayGround();
         // Parse the command-line arguments
         String[] agents = { "ag1:main.Explorer",
                             "ag2:main.Explorer",
@@ -51,22 +54,22 @@ public class Main extends JFrame{
                 switch(i)
                 {
                 case 1: 
-                    agentController = container.createNewAgent(agentName, agentClass, new Object[]{0,0, REGION_SIZE, AGENTCAPACITY});
+                    agentController = container.createNewAgent(agentName, agentClass, new Object[]{0,0, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY});
                     agentController.start();
                 	break;
                 	
                 case 2:
-                    agentController = container.createNewAgent(agentName, agentClass, new Object[]{REGION_SIZE, 0, REGION_SIZE, AGENTCAPACITY});
+                    agentController = container.createNewAgent(agentName, agentClass, new Object[]{PlayGround.REGION_SIZE, 0, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY});
                     agentController.start();
                 	break;
 
                 case 3:
-                	agentController = container.createNewAgent(agentName, agentClass, new Object[]{0, REGION_SIZE, REGION_SIZE, AGENTCAPACITY});
+                	agentController = container.createNewAgent(agentName, agentClass, new Object[]{0, PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY});
                 	agentController.start();
                 	break;
                 	
                 case 4: 
-                	agentController = container.createNewAgent(agentName, agentClass, new Object[]{REGION_SIZE, REGION_SIZE, REGION_SIZE, AGENTCAPACITY});
+                	agentController = container.createNewAgent(agentName, agentClass, new Object[]{PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, PlayGround.AGENTCAPACITY});
                 	agentController.start();
                 	break;
                 	
@@ -101,19 +104,19 @@ public class Main extends JFrame{
         mainPan.setBackground(Color.black);
         
         JPanel north= new JPanel();
-        north.setSize(north.getSize().width, CASE_SIZE);
+        north.setSize(north.getSize().width, PlayGround.CASE_SIZE);
         //north.setBackground(Color.red);
         
         JPanel east= new JPanel();
-        east.setSize(CASE_SIZE, north.getSize().height);
+        east.setSize(PlayGround.CASE_SIZE, north.getSize().height);
         //east.setBackground(Color.blue);
         
         JPanel south= new JPanel();
-        north.setSize(north.getSize().width, CASE_SIZE);
+        north.setSize(north.getSize().width, PlayGround.CASE_SIZE);
         //north.setBackground(Color.green);
         
         JPanel west= new JPanel();
-        east.setSize(CASE_SIZE, north.getSize().height);
+        east.setSize(PlayGround.CASE_SIZE, north.getSize().height);
         //east.setBackground(Color.yellow);
         
         center= new MainPanel();
@@ -124,7 +127,7 @@ public class Main extends JFrame{
         mainPan.add(east, BorderLayout.WEST);
         mainPan.add(west, BorderLayout.EAST);
         
-        frame.setSize(MATRIX_SIZE * (CASE_SIZE+1)+5 , MATRIX_SIZE * (CASE_SIZE+2));
+        frame.setSize(PlayGround.MATRIX_SIZE * (PlayGround.CASE_SIZE+1)+5 , PlayGround.MATRIX_SIZE * (PlayGround.CASE_SIZE+2));
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
