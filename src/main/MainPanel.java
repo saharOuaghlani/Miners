@@ -37,6 +37,7 @@ public class MainPanel extends JPanel {
     Position robot3;
     Position robot4;
     
+    MainPanel(){};
 	MainPanel(PlayGround myPlayGround, Position robot1, Position robot2, Position robot3, Position robot4){
 		super();
 			

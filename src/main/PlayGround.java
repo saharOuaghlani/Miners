@@ -27,7 +27,7 @@ public class PlayGround {
 	
 	private void initDiscovery()
 	{
-		//0 pour dire non exploré
+		//0 pour dire non explorï¿½
 				for(int i=0; i< MATRIX_SIZE; i++)
 					for(int j=0; j< MATRIX_SIZE; j++)
 						discovery[i][j]= 0;
