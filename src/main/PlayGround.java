@@ -8,7 +8,7 @@ public class PlayGround {
 	public static final int REGION_SIZE = MATRIX_SIZE / 2;
 	public static final int CASE_SIZE = 20;
 	public static final int ROBOT_SIZE = 20;
-	public static final int DELAY = 200; 
+	public static final int DELAY = 1000; 
 	public static final int MINES= 50;
     public static final int AGENTCAPACITY= 2;
 	public static final int MAX_RESOURCES= 8;
@@ -31,9 +31,6 @@ public class PlayGround {
 				for(int i=0; i< MATRIX_SIZE; i++)
 					for(int j=0; j< MATRIX_SIZE; j++)
 						discovery[i][j]= 0;
-		//System.out.println("dicovery shuffling");
-		//displayMatrix(discovery);
-
 	}
 	
 	private void initMatrix()
@@ -49,13 +46,7 @@ public class PlayGround {
 						}
 						else matrix[i][j]= 0;
 				}
-		//System.out.println("matrix before shuffling");
-	    //displayMatrix(matrix);
-		
-		// Shuffle the matrix using Fisher-Yates algorithm
 	    shuffleMatrix();
-	    //System.out.println("matrix after shuffling");
-	    //displayMatrix(matrix);
 	}
 	
 	private void shuffleMatrix() {

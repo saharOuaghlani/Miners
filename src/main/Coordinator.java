@@ -13,7 +13,7 @@ public class Coordinator extends Agent{
 	private List<Explorer> robotExplorers;
 
 
-	public Coordinator CoordinatorAgent(int totalResources, int[][] resourceMatrix, int[][] discoveryMatrix, List<Explorer> robotExplorers) {
+	public Coordinator(int totalResources, int[][] resourceMatrix, int[][] discoveryMatrix, List<Explorer> robotExplorers) {
         this.totalResources = totalResources;
         this.resourceMatrix = resourceMatrix;
         this.discoveryMatrix = discoveryMatrix;
@@ -41,6 +41,7 @@ public class Coordinator extends Agent{
         System.out.println("Rupture de ressources. Notifying robots...");
         for (Explorer robot : robotExplorers) {
             robot.handleEmptyResources();
+			
         }
     }
 }
