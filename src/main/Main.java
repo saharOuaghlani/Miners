@@ -12,85 +12,102 @@ import jade.core.Runtime;
 import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
 import main.MainPanel;
+import javax.swing.SwingUtilities;
 
 public class Main extends JFrame{
 	
-	/*private static final int MATRIX_SIZE = 32;
-    private static final int REGION_SIZE = MATRIX_SIZE / 2;
-    private static final int CASE_SIZE = 20;
-    private static final int ROBOT_SIZE = 20;
-    private static final int DELAY = 200; // Delay in milliseconds for smooth transition
-    
-    private static final int MINES= 50;
-    private static final int AGENTCAPACITY= 2;
-    */
-	
-    private static PlayGround myPlayGround;
+    private static PlayGround myPlayGround= new PlayGround();
+
     private static MainPanel center;
     
-	public static void main(String[] args) {
+    private static Position
+    //blue
+    p1= new Position(PlayGround.REGION_SIZE - 1, PlayGround.REGION_SIZE - 1),
+    
+    //brown
+    p2= new Position(PlayGround.REGION_SIZE, PlayGround.REGION_SIZE - 1),
+    
+    //purple
+    p3= new Position (PlayGround.REGION_SIZE - 1, PlayGround.REGION_SIZE),
+    
+    //green
+    p4= new Position (PlayGround.REGION_SIZE , PlayGround.REGION_SIZE );
+  
+    
+    public static void main(String[] args) {
 		
-		myPlayGround= new PlayGround();
-        // Parse the command-line arguments
-        String[] agents = { "ag1:main.Explorer",
-                            "ag2:main.Explorer",
-                            "ag3:main.Explorer",
-                            "ag4:main.Explorer",
-                            "boss:main.Coordinator"};
-
-        // Start JADE runtime
+		
+		
+		// Start JADE runtime
         Runtime rt = Runtime.instance();
         Profile profile = new ProfileImpl();
         AgentContainer container = rt.createMainContainer(profile);
-        AgentController agentController= null;
+
+        //sGUI();
+        launchAgents(container);
+        
+        /*
+        // Launch the agents in a separate thread
+        Thread agentThread = new Thread(() -> launchAgents(container));
+        agentThread.start();
+
+        // Launch the GUI on the Event Dispatch Thread
+        SwingUtilities.invokeLater(() -> GUI());*/
+         
+    }
+
+	private static void launchAgents(AgentContainer container) {
+        // Parse the command-line arguments
+        String[] agents = { "ag1:main.Explorer",
+                "ag2:main.Explorer",
+                "ag3:main.Explorer",
+                "ag4:main.Explorer",
+                "boss:main.Coordinator" };
+
+        AgentController agentController = null;
         try {
             // Start each agent based on the provided arguments
-        	int i=1;
+            int i = 1;
             for (String agentArg : agents) {
                 String[] agentParts = agentArg.split(":");
                 String agentName = agentParts[0];
                 String agentClass = agentParts[1];
 
-                Position p1= new Position (PlayGround.REGION_SIZE-1, PlayGround.REGION_SIZE - 1);
-                Position p2= new Position (PlayGround.REGION_SIZE, PlayGround.REGION_SIZE - 1);
-                Position p3= new Position (PlayGround.REGION_SIZE - 1, PlayGround.REGION_SIZE);
-                Position p4= new Position (PlayGround.REGION_SIZE, PlayGround.REGION_SIZE);
                 
-                switch(i)
-                {
-                case 1: 
-                    agentController = container.createNewAgent(agentName, agentClass, new Object[]{0,0, PlayGround.REGION_SIZE, p1, myPlayGround, agentName});
-                    agentController.start();
-                	break;
-                	
-                case 2:
-                    agentController = container.createNewAgent(agentName, agentClass, new Object[]{PlayGround.REGION_SIZE, 0, PlayGround.REGION_SIZE, p2, myPlayGround, agentName});
-                    agentController.start();
-                	break;
+                switch (i) {
+                    case 1:
+                        agentController = container.createNewAgent(agentName, agentClass,
+                                new Object[] { 0, 0, PlayGround.REGION_SIZE, p1, myPlayGround, agentName });
+                        agentController.start();
+                        break;
+                        /* 	
+                        case 2:
+                            agentController = container.createNewAgent(agentName, agentClass, new Object[]{PlayGround.REGION_SIZE, 0, PlayGround.REGION_SIZE, p2, myPlayGround, agentName});
+                            agentController.start();
+                        	break;
 
-                case 3:
-                	agentController = container.createNewAgent(agentName, agentClass, new Object[]{0, PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, p3, myPlayGround, agentName});
-                	agentController.start();
-                	break;
-                	
-                case 4: 
+                        case 3:
+                        	agentController = container.createNewAgent(agentName, agentClass, new Object[]{0, PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, p3, myPlayGround, agentName});
+                        	agentController.start();
+                        	break;
+                        	
+                        case 4: 
 
-                	agentController = container.createNewAgent(agentName, agentClass, new Object[]{PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, p4, myPlayGround, agentName});
-                	agentController.start();
-                	break;
-                	
-                case 5: 
-                	agentController = container.createNewAgent(agentName, agentClass, null);
-                	agentController.start();
-                	break;
-                
-                default: System.out.println("ERROR�");
+                        	agentController = container.createNewAgent(agentName, agentClass, new Object[]{PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, PlayGround.REGION_SIZE, p4, myPlayGround, agentName});
+                        	agentController.start();
+                        	break;
+                        	
+                        case 5: 
+                        	agentController = container.createNewAgent(agentName, agentClass, null);
+                        	agentController.start();
+                        	break;
+                        */
+                    default:
+                        System.out.println("ERROR");
                 }
-                
-            i++;
+
+                i++;
             }
-            
-            GUI();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,21 +128,17 @@ public class Main extends JFrame{
         
         JPanel north= new JPanel();
         north.setSize(north.getSize().width, PlayGround.CASE_SIZE);
-        //north.setBackground(Color.red);
         
         JPanel east= new JPanel();
         east.setSize(PlayGround.CASE_SIZE, north.getSize().height);
-        //east.setBackground(Color.blue);
         
         JPanel south= new JPanel();
         north.setSize(north.getSize().width, PlayGround.CASE_SIZE);
-        //north.setBackground(Color.green);
         
         JPanel west= new JPanel();
         east.setSize(PlayGround.CASE_SIZE, north.getSize().height);
-        //east.setBackground(Color.yellow);
         
-        center= new MainPanel();
+        center= new MainPanel(myPlayGround, p1, p2, p3, p4);
         
         mainPan.add(north, BorderLayout.NORTH);
         mainPan.add(center, BorderLayout.CENTER);

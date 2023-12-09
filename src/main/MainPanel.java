@@ -10,27 +10,7 @@ import java.awt.Stroke;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
-/**
- * This class represents a 64x64 matrix divided into 4 regions, with moving robots exploring cases looking for resources.
- */
 public class MainPanel extends JPanel {
-    
-	//private static final int MATRIX_SIZE = 32;
-    //private static final int REGION_SIZE = MATRIX_SIZE / 2;
-    //private static final int CASE_SIZE = 20;
-    //private static final int ROBOT_SIZE = 20;
-    //private static final int DELAY = 200; // Delay in milliseconds for smooth transition
-    //private static final int DIM= 2;
-    //private static final int MINES= 50;
-    
-    //private int[][] matrix;
-    //private boolean[][] Discovery;
-    //private int robot1X, robot1Y;
-    //private int robot2X, robot2Y;
-    //private int robot3X, robot3Y;
-    //private int robot4X, robot4Y;
-    
     PlayGround myPlayGround; 
     Position robot1;
     Position robot2;
@@ -40,24 +20,13 @@ public class MainPanel extends JPanel {
     MainPanel(){};
 	MainPanel(PlayGround myPlayGround, Position robot1, Position robot2, Position robot3, Position robot4){
 		super();
-			
 			this.myPlayGround= myPlayGround;
 			this.robot1= robot1;
-			this.robot1= robot2;
-			this.robot1= robot3;
+			this.robot2= robot2;
+			this.robot3= robot3;
 			this.robot4= robot4;
 		
-	        //robot1X = REGION_SIZE -1;
-	        //robot1Y = REGION_SIZE -1;
-	        
-	        //robot2X = 0;
-	        //robot2Y = REGION_SIZE -1;
-	        
-	        //robot3X = REGION_SIZE -1;
-	        //robot3Y = 0;
-	        
-	        //robot4X = 0;
-	        //robot4Y = 0;
+			System.out.println("@@@@@GUI:\n"+robot1+"\n"+ robot2+"\n"+ robot3+"\n"+ robot4+"\nEND\n-*--*-----\n.");
 	        createAndVisualizeMatrix();
 	}
 	
@@ -70,7 +39,6 @@ public class MainPanel extends JPanel {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        
     }
 
     /**
@@ -123,30 +91,13 @@ public class MainPanel extends JPanel {
         }
         
         // Draw robots
+        System.out.println("@robot 1: "+robot1);
+        //System.out.println("@robot 2: "+robot3);
+        //System.out.println("@robot 3: "+robot3);
+        //System.out.println("@robot 4: "+robot4);
+        //System.out.println("-_-_-_-_-_-_-_-_");
         
-        //blue
-        if(robot1 != null) {
-        	g.setColor(new Color(37, 150, 190, 255));
-        	g.fillRect(robot1.getX() * myPlayGround.CASE_SIZE + (myPlayGround.CASE_SIZE - myPlayGround.ROBOT_SIZE) / 2, robot1.getY() * myPlayGround.CASE_SIZE + (myPlayGround.CASE_SIZE - myPlayGround.ROBOT_SIZE) / 2, myPlayGround.ROBOT_SIZE, myPlayGround.ROBOT_SIZE);
-        }
         
-        //brown
-        if(robot2 != null) {
-        g.setColor(new Color(190, 77, 37, 255));
-        g.fillRect((robot2.getX() + myPlayGround.REGION_SIZE) * myPlayGround.CASE_SIZE + (myPlayGround.CASE_SIZE - myPlayGround.ROBOT_SIZE) / 2, robot2.getY() * myPlayGround.CASE_SIZE + (myPlayGround.CASE_SIZE - myPlayGround.ROBOT_SIZE) / 2, myPlayGround.ROBOT_SIZE, myPlayGround.ROBOT_SIZE);
-        }
-        
-        //purple
-        if(robot3 != null) {
-        g.setColor(new Color(153, 37, 190, 255));
-        g.fillRect(robot3.getX() * myPlayGround.CASE_SIZE + (myPlayGround.CASE_SIZE - myPlayGround.ROBOT_SIZE) / 2, (robot3.getY() + myPlayGround.REGION_SIZE) * myPlayGround.CASE_SIZE + (myPlayGround.CASE_SIZE - myPlayGround.ROBOT_SIZE) / 2, myPlayGround.ROBOT_SIZE, myPlayGround.ROBOT_SIZE);
-        }
-        
-        //green
-        if(robot4 != null) {
-        g.setColor(new Color(73, 190, 37, 255));
-        g.fillRect((robot4.getX() + myPlayGround.REGION_SIZE) * myPlayGround.CASE_SIZE + (myPlayGround.CASE_SIZE - myPlayGround.ROBOT_SIZE) / 2, (robot4.getY() + myPlayGround.REGION_SIZE) * myPlayGround.CASE_SIZE + (myPlayGround.CASE_SIZE - myPlayGround.ROBOT_SIZE) / 2, myPlayGround.ROBOT_SIZE, myPlayGround.ROBOT_SIZE);
-        }
         
         //finalizing the playground
         g2.setColor(Color.black);
@@ -170,10 +121,34 @@ public class MainPanel extends JPanel {
         float[] initPlaceDashPatter= {20.0f, 10.0f};
         dashed= new BasicStroke(2.5f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
                 0, initPlaceDashPatter, 0);
-        //g2.setStroke(new BasicStroke((float)2.5));
+        g2.setStroke(new BasicStroke((float)2.5));
         g2d.setColor(new Color(190, 37, 40, 128));
         g2d.drawRect((myPlayGround.MATRIX_SIZE/2- 1)*myPlayGround.CASE_SIZE, (myPlayGround.MATRIX_SIZE/2- 1)*myPlayGround.CASE_SIZE, 2*myPlayGround.CASE_SIZE, 2*myPlayGround.CASE_SIZE);
         g2d.fillRect((myPlayGround.MATRIX_SIZE/2- 1)*myPlayGround.CASE_SIZE, (myPlayGround.MATRIX_SIZE/2- 1)*myPlayGround.CASE_SIZE, 2*myPlayGround.CASE_SIZE, 2*myPlayGround.CASE_SIZE);
+        
+      //blue
+        if(robot1 != null) {
+        	g.setColor(new Color(37, 150, 190, 255));
+        	g.fillRect(robot1.getX() * myPlayGround.CASE_SIZE , robot1.getY() * myPlayGround.CASE_SIZE , myPlayGround.ROBOT_SIZE, myPlayGround.ROBOT_SIZE);
+        }
+        
+        //brown
+        if(robot2 != null) {
+        g.setColor(new Color(190, 77, 37, 255));
+    	g.fillRect(robot2.getX() * myPlayGround.CASE_SIZE , robot2.getY() * myPlayGround.CASE_SIZE , myPlayGround.ROBOT_SIZE, myPlayGround.ROBOT_SIZE);
+        }
+        
+        //purple
+        if(robot3 != null) {
+        g.setColor(new Color(153, 37, 190, 255));
+        g.fillRect(robot3.getX() * myPlayGround.CASE_SIZE , robot3.getY() * myPlayGround.CASE_SIZE , myPlayGround.ROBOT_SIZE, myPlayGround.ROBOT_SIZE);
+        }
+        
+        //green
+        if(robot4 != null) {
+        g.setColor(new Color(73, 190, 37, 255));
+    	g.fillRect(robot4.getX() * myPlayGround.CASE_SIZE , robot4.getY() * myPlayGround.CASE_SIZE , myPlayGround.ROBOT_SIZE, myPlayGround.ROBOT_SIZE);
+        }
         
     }
 }
