@@ -117,8 +117,7 @@ public class Explorer  extends Agent {
 			} else if (currentX > endX) {
 				currentX--;
 			}
-			currentPosition.setX(currentX);
-			
+			currentPosition.setX(currentX);		
 			System.out.println("Position actuelle : (" + currentX + ", " + currentY + ")");
 	
 			// Si l'agent a atteint la position finale en x, il ne se déplace plus en y
@@ -132,8 +131,7 @@ public class Explorer  extends Agent {
 			} else if (currentY > endY) {
 				currentY--;
 			}
-			currentPosition.setY(currentY);
-	
+			currentPosition.setY(currentY);	
 			System.out.println("Position actuelle : (" + currentX + ", " + currentY + ")");
 		}
 	}
@@ -144,21 +142,20 @@ public class Explorer  extends Agent {
 		int nouvellePositionI = -1;
 		int nouvellePositionJ = -1;
 		do
-	{
-		// Générer un nombre aléatoire pour la direction du déplacement
-		int direction = (int) (Math.random() * 4); // 0: gauche, 1: droite, 2: haut, 3: bas
-		
-		if( direction == 0)// Gauche
+		{
+			// Générer un nombre aléatoire pour la direction du déplacement
+			int direction = (int) (Math.random() * 4); 
+			
+			if( direction == 0)// Gauche
 				nouvellePositionJ = position.getY()-1;
-		else if( direction ==1 )	// Droite
+			else if( direction ==1 )	// Droite
 				nouvellePositionJ = position.getY() + 1;
-
-		else if( direction ==2 ) // Haut
+			else if( direction ==2 ) // Haut
 				nouvellePositionI = position.getX()-1;
-		else // Bas
+			else // Bas
 				nouvellePositionI = position.getX() + 1;
 		
-	}while(nouvellePositionI<x0 || nouvellePositionJ<y0 || nouvellePositionI == x0 + regionSize || nouvellePositionJ == y0 + regionSize);
+		}while(nouvellePositionI<x0 || nouvellePositionJ<y0 || nouvellePositionI == x0 + regionSize || nouvellePositionJ == y0 + regionSize);
 		
 		position.setX(nouvellePositionI);
 		position.setY(nouvellePositionJ);
