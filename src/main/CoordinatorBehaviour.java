@@ -81,7 +81,7 @@ public class CoordinatorBehaviour extends CyclicBehaviour {
 
         // Calculate the sum of entrepot values for all agents
         for (Explorer robot : robotExplorers) {
-            totalEntrepotSum += resourceMatrix[robot.getX0()][robot.getY0()];
+            totalEntrepotSum += resourceMatrix[robot.getEntropot().getX()][robot.getEntropot().getY()];
         }
 
         // Check if the sum is equal to totalResources
@@ -90,7 +90,7 @@ public class CoordinatorBehaviour extends CyclicBehaviour {
     private boolean isEntrepot(int x, int y, Explorer robot) {
         // Implement the logic to check if the cell at (x, y) is the entrepôt for the given robot
         // You might need to adjust this based on how your entrepôt is represented
-        return x == robot.getX0() && y == robot.getY0();
+        return x == robot.getEntropot().getX() && y == robot.getEntropot().getY();
     }
     private void makeAvailable(Explorer robot) {
         // Implement the logic to make the robot available
