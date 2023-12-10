@@ -168,7 +168,7 @@ public class Explorer  extends Agent {
 			if (discovery[nouvellePositionI][nouvellePositionJ] == 0)
 				discovery[nouvellePositionI][nouvellePositionJ] = -1;
 			if (matrix[nouvellePositionI][nouvellePositionJ] <= capacity) {
-				int charge = myPlayGround.matrix[nouvellePositionI][nouvellePositionJ];
+				int charge = matrix[nouvellePositionI][nouvellePositionJ];
 				matrix[nouvellePositionI][nouvellePositionJ] = 0;
 				System.out.println(getLocalName() + " a récupéré une ressource à la position " + nouvellePositionI + ", " + nouvellePositionJ);
 				moveAgent(position, entropot);
