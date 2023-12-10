@@ -19,7 +19,12 @@ public class Explorer  extends Agent {
 	private int[][] discovery;
 	private String agentName;
 	private boolean dispo;
-	public Explorer(){super();}
+
+	Position getPosition()
+	{
+		return this.position;
+	}
+
 	ReceiverBehaviour receiverBehaviour;
 	protected void setup(){		
 	// Get arguments
@@ -51,7 +56,7 @@ public class Explorer  extends Agent {
 		}
 	}
 
-	
+
 	while(true)
 	{
 		ACLMessage msg = blockingReceive();//récuperer message reçu
@@ -158,8 +163,8 @@ public class Explorer  extends Agent {
 		position.setX(nouvellePositionI);
 		position.setY(nouvellePositionJ);
 		if (matrix[nouvellePositionI][nouvellePositionJ] > 0) {
-			// Récupérer la ressource si elle est dans la capacité de l'agent
 
+			// Récupérer la ressource si elle est dans la capacité de l'agent
 			if (discovery[nouvellePositionI][nouvellePositionJ] == 0)
 				discovery[nouvellePositionI][nouvellePositionJ] = -1;
 			if (matrix[nouvellePositionI][nouvellePositionJ] <= capacity) {
@@ -178,6 +183,33 @@ public class Explorer  extends Agent {
 			}
 		}
 	}
+
+
+	//retourne l'agent ayant distance inferieure
+	private String selectAgentBasedOnDistance(List<Position> posList, List<String> nameList) {
+		double minDistance = Double.MAX_VALUE;
+		String selectedAgent = null;
 	
+		for (int i = 0; i < nameList.size(); i++) {
+			String agent = nameList.get(i);
+			Position pos = posList.get(i);
+	
+			if (!agent.equals(agentName)) {
+				double distance = calculateDistance(position.getX(), position.getY(), pos.getX(), pos.getY());
+	
+				if (distance < minDistance) {
+					minDistance = distance;
+					selectedAgent = agent;
+				}
+			}
+		}
+	
+		return selectedAgent;
+	}
+	
+	
+	private double calculateDistance(int x1, int y1, int x2, int y2) {
+		return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+	}
 	
 }
