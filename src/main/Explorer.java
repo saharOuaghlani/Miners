@@ -73,15 +73,15 @@ public class Explorer  extends Agent {
 			moveAgent(entropot, posR);
 			if (myPlayGround.matrix[posR.getX()][posR.getY()] <= capacity) {
 				int charge = myPlayGround.matrix[posR.getX()][posR.getY()];
-				myPlayGround.matrix[posR.getX()][posR.getY()] = 0;
-				myPlayGround.discovery[posR.getX()][posR.getY()] = -1;
+				matrix[posR.getX()][posR.getY()] = 0;
+				discovery[posR.getX()][posR.getY()] = -1;
 				moveAgent(posR, entropot);
-				myPlayGround.discovery[entropot.getX()][entropot.getY()] += charge;		}
+				discovery[entropot.getX()][entropot.getY()] += charge;		}
 			else{
-					myPlayGround.matrix[posR.getX()][posR.getY()] -= capacity;
-					myPlayGround.discovery[posR.getX()][posR.getY()] = -1;
+					matrix[posR.getX()][posR.getY()] -= capacity;
+					discovery[posR.getX()][posR.getY()] = -1;
 					moveAgent(posR, entropot);
-					myPlayGround.discovery[entropot.getX()][entropot.getY()] += capacity;		
+					discovery[entropot.getX()][entropot.getY()] += capacity;		
 				}
 			}
 
