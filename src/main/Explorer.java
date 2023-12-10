@@ -19,13 +19,35 @@ public class Explorer  extends Agent {
 	private int[][] discovery;
 	private String agentName;
 	private boolean dispo;
+	ReceiverBehaviour receiverBehaviour;
 
-	Position getPosition()
+	public Explorer(){super();};	
+
+	public Position getEntropot()
+	{
+		return this.entropot;
+	}
+
+	public boolean getStatus()
+	{
+		return this.dispo;
+	}
+
+	public void setStatus(boolean dispo)
+	{
+		this.dispo = dispo;
+	}
+	public Position getPosition()
 	{
 		return this.position;
 	}
 
-	ReceiverBehaviour receiverBehaviour;
+	public String getAgentname()
+	{
+		return this.agentName;
+	}
+
+
 	protected void setup(){		
 	// Get arguments
 	Object[] args = getArguments();
@@ -50,9 +72,8 @@ public class Explorer  extends Agent {
 		explorerMatriceRessources();
     	String message = receiverBehaviour.getReceivedContent();
 
-    	if (message != null && message.equals("Region DONE!")) {
+    	if (message != null && message.equals("Region explored")) {
 			moveAgent(position, entropot);
-			dispo = true;
 		}
 	}
 
@@ -62,7 +83,7 @@ public class Explorer  extends Agent {
 		ACLMessage msg = blockingReceive();//récuperer message reçu
 		String message = msg.toString();
 		
-		if (message.equals("GAME OVER")){//Tous les ressources sont récupérées
+		if (message.equals("Well done!")){//Tous les ressources sont récupérées
 			System.exit(0);}
 		else{
 			
