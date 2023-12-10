@@ -12,8 +12,7 @@ public class CoordinatorBehaviour extends CyclicBehaviour {
     private int[][] discoveryMatrix;
     private List<Explorer> robotExplorers;
 
-    public CoordinatorBehaviour(Agent agent, int totalResources, int[][] resourceMatrix,
-                                    int[][] discoveryMatrix, List<Explorer> robotExplorers) {
+    public CoordinatorBehaviour(Agent agent, int totalResources, int[][] resourceMatrix, int[][] discoveryMatrix, List<Explorer> robotExplorers) {
         super(agent);
         this.totalResources = totalResources;
         this.resourceMatrix = resourceMatrix;
@@ -34,7 +33,6 @@ public class CoordinatorBehaviour extends CyclicBehaviour {
         // For example, use a blocking receive with a timeout:
         block(1000); // This will block for 1 second
     }
-
     private boolean areAllResourcesConsumed() {
         for (int[] row : resourceMatrix) {
             for (int value : row) {
