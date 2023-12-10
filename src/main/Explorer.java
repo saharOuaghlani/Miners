@@ -23,27 +23,22 @@ public class Explorer  extends Agent {
 
 	public Explorer(){super();};	
 
-	public Position getEntropot()
-	{
+	public Position getEntropot(){
 		return this.entropot;
 	}
 
-	public boolean getStatus()
-	{
+	public boolean getStatus(){
 		return this.dispo;
 	}
 
-	public void setStatus(boolean dispo)
-	{
+	public void setStatus(boolean dispo){
 		this.dispo = dispo;
 	}
-	public Position getPosition()
-	{
+	public Position getPosition(){
 		return this.position;
 	}
 
-	public String getAgentname()
-	{
+	public String getAgentname(){
 		return this.agentName;
 	}
 
@@ -92,8 +87,8 @@ public class Explorer  extends Agent {
 			Position posR = new Position(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1]));
 
 			moveAgent(entropot, posR);
-			if (myPlayGround.matrix[posR.getX()][posR.getY()] <= capacity) {
-				int charge = myPlayGround.matrix[posR.getX()][posR.getY()];
+			if (matrix[posR.getX()][posR.getY()] <= capacity) {
+				int charge = matrix[posR.getX()][posR.getY()];
 				matrix[posR.getX()][posR.getY()] = 0;
 				discovery[posR.getX()][posR.getY()] = -1;
 				moveAgent(posR, entropot);
@@ -167,23 +162,24 @@ public class Explorer  extends Agent {
 			// Générer un nombre aléatoire pour la direction du déplacement
 			int direction = (int) (Math.random() * 4); 
 			
-			if( direction == 0)// Gauche
+			if( direction == 0)// Bas
 				nouvellePositionJ = position.getY()-1;
-			else if( direction ==1 )	// Droite
+			else if( direction ==1 )	// Haut
 				nouvellePositionJ = position.getY() + 1;
-			else if( direction ==2 ) // Haut
+			else if( direction ==2 ) // Gauche
 				nouvellePositionI = position.getX()-1;
-			else // Bas
+			else // Droite
 				nouvellePositionI = position.getX() + 1;
 		
 		}while(nouvellePositionI<x0 || nouvellePositionJ<y0 || nouvellePositionI == x0 + regionSize || nouvellePositionJ == y0 + regionSize);
 		
 		position.setX(nouvellePositionI);
 		position.setY(nouvellePositionJ);
+
 		if (matrix[nouvellePositionI][nouvellePositionJ] > 0) {
 
 			// Récupérer la ressource si elle est dans la capacité de l'agent
-			if (discovery[nouvellePositionI][nouvellePositionJ] == 0)
+			if (discovery[nouvellePositionI][nouvellePositionJ] == 0 && nouvellePositionI!= entropot.getX()&& nouvellePositionJ!=entropot.getY())
 				discovery[nouvellePositionI][nouvellePositionJ] = -1;
 			if (matrix[nouvellePositionI][nouvellePositionJ] <= capacity) {
 				int charge = matrix[nouvellePositionI][nouvellePositionJ];
@@ -193,8 +189,30 @@ public class Explorer  extends Agent {
 				discovery[entropot.getX()][entropot.getY()] += charge;
 			} else {
 
+				matrix[nouvellePositionI][nouvellePositionJ] -= capacity;
+				discovery[nouvellePositionI][nouvellePositionJ] = -1;
+				moveAgent(position, entropot);
+				discovery[entropot.getX()][entropot.getY()] += capacity;
+
 				// Faire appel à d'autres agents 
 				AppelAutresAgents(position, agentName);
+				String message = null;
+				boolean test = true;
+				while(test){
+					try {
+						Thread.sleep(3000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					message = receiverBehaviour.getReceivedContent();
+					test = false;
+				}
+				
+				if (message != null && message.equals("Region explored")) {
+					moveAgent(position, entropot);
+				}
+					
+				
 				//selection d'agent selon le critére de distance
 				//si aucune réponse retour de l'agent lui méme pour la récuperation
 
